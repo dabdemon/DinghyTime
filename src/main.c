@@ -10,7 +10,18 @@
 	#define TIME_FRAME4       (GRect(0, 121, 142, 35)) 
 	#define DATE_FRAME        (GRect(0, 3, 144, 30))
 	#define JOKE_FRAME        (GRect(0, 154, 144, 14)) 
+	
+// Vibe pattern: ON for 200ms, OFF for 100ms, ON for 200ms:
 
+static const uint32_t const OneBell[] = { 400, 400 };
+static const uint32_t const TwoBells[] = { 400, 400, 400 };
+static const uint32_t const ThreeBells[] = { 400, 400, 400, 400, 400 };
+static const uint32_t const FourBells[] = { 400, 400, 400, 400, 400, 400, 400 };
+static const uint32_t const FiveBells[] = { 400, 400, 400, 400, 400, 400, 400, 400, 400 };
+static const uint32_t const SixBells[] = { 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400 };
+static const uint32_t const SevenBells[] = { 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400 };
+static const uint32_t const EightBells[] = { 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400 };
+	
 //Declare initial window	
 	Window *my_window;    
 
@@ -67,6 +78,74 @@ static char strMid[] = "mid ";
 static char strLate[] = "late ";
 
 static char strjoke[]="it's five o'clock somewhere";
+
+//Check if the bell needs to ding
+bool blnDingBell = false;
+int intNumBell = 0;
+
+/*************/
+/* DING BELL */
+/*************/
+static void vibes(int intVibes)
+{
+
+	
+	if(intVibes==1){ VibePattern pat = {
+  										.durations = OneBell,
+ 										.num_segments = ARRAY_LENGTH(OneBell),
+                                       };
+							vibes_enqueue_custom_pattern(pat);
+				   }
+	else if(intVibes==2){ VibePattern pat2 = {
+  										.durations = TwoBells,
+ 										.num_segments = ARRAY_LENGTH(TwoBells),
+                                       };
+						 	vibes_enqueue_custom_pattern(pat2);
+				   }
+	else if(intVibes==3){ VibePattern pat3 = {
+  										.durations = ThreeBells,
+ 										.num_segments = ARRAY_LENGTH(ThreeBells),
+                                       };
+						 	vibes_enqueue_custom_pattern(pat3);
+				   }
+	else if(intVibes==4){ VibePattern pat4 = {
+  										.durations = FourBells,
+ 										.num_segments = ARRAY_LENGTH(FourBells),
+                                       };
+						 	vibes_enqueue_custom_pattern(pat4);
+				   }
+	else if(intVibes==5){ VibePattern pat5 = {
+  										.durations = FiveBells,
+ 										.num_segments = ARRAY_LENGTH(FiveBells),
+                                       };
+						 	vibes_enqueue_custom_pattern(pat5);
+				   }
+	else if(intVibes==6){VibePattern pat6 = {
+  										.durations = SixBells,
+ 										.num_segments = ARRAY_LENGTH(SixBells),
+                                       };
+						 	vibes_enqueue_custom_pattern(pat6);
+				   }
+	else if(intVibes==7){VibePattern pat7 = {
+  										.durations = SevenBells,
+ 										.num_segments = ARRAY_LENGTH(SevenBells),
+                                       };
+						 	vibes_enqueue_custom_pattern(pat7);
+				   }
+	else if(intVibes==8){ VibePattern pat8 = {
+  										.durations = EightBells,
+ 										.num_segments = ARRAY_LENGTH(EightBells),
+                                       };
+						 	vibes_enqueue_custom_pattern(pat8);
+				   }
+
+
+	
+	//Turn off the bell until next time
+	blnDingBell=false;
+	
+}	
+
 
 //************************//
 // Capture the Tick event //
@@ -160,65 +239,97 @@ When the time is (either AM or PM): Display shows:
 		//ONE BELL
 		if(((ia==12)&&(id>=16)&&(id<=45))||((ia==4)&&(id>=16)&&(id<=45))||((ia==8)&&(id>=16)&&(id<=45)))
 		{
+			//check if bell needs to ding
+			if (intNumBell!=1){blnDingBell=true;
+							   intNumBell = 1;}
+			
 			text_layer_set_text(Time_Layer1, "");
 			text_layer_set_text(Time_Layer2, strAbout);
-			text_layer_set_text(Time_Layer3, DINGHS[1]);
+			text_layer_set_text(Time_Layer3, DINGHS[intNumBell]);
 			text_layer_set_text(Time_Layer4, strBell);
 		}
 		//TWO BELLS
 		else if(((ia==12)&&(id>=46))||((ia==1)&&(id<=15))||((ia==4)&&(id>=46))||((ia==5)&&(id<=15))||((ia==8)&&(id>=46))||((ia==9)&&(id<=15)))
 		{
+			//check if bell needs to ding
+			if (intNumBell!=2){blnDingBell=true;
+							   intNumBell = 2;}
+			
 			text_layer_set_text(Time_Layer1, "");
 			text_layer_set_text(Time_Layer2, strAbout);
-			text_layer_set_text(Time_Layer3, DINGHS[2]);
+			text_layer_set_text(Time_Layer3, DINGHS[intNumBell]);
 			text_layer_set_text(Time_Layer4, strBells);
 		}
 		//THREE BELLS
 		else if(((ia==1)&&(id>=16)&&(id<=45))||((ia==5)&&(id>=16)&&(id<=45))||((ia==9)&&(id>=16)&&(id<=45)))
 		{
+			//check if bell needs to ding
+			if (intNumBell!=3){blnDingBell=true;
+							   intNumBell = 3;}
+			
 			text_layer_set_text(Time_Layer1, "");
 			text_layer_set_text(Time_Layer2, strAbout);
-			text_layer_set_text(Time_Layer3, DINGHS[3]);
+			text_layer_set_text(Time_Layer3, DINGHS[intNumBell]);
 			text_layer_set_text(Time_Layer4, strBells);
 		}
 		//FOUR BELLS
 		else if(((ia==1)&&(id>=46))||((ia==2)&&(id<=15))||((ia==5)&&(id>=46))||((ia==6)&&(id<=15))||((ia==9)&&(id>=46))||((ia==10)&&(id<=15)))
 		{
+			//check if bell needs to ding
+			if (intNumBell!=4){blnDingBell=true;
+							   intNumBell = 4;}
+			
 			text_layer_set_text(Time_Layer1, "");
 			text_layer_set_text(Time_Layer2, strAbout);
-			text_layer_set_text(Time_Layer3, DINGHS[4]);
+			text_layer_set_text(Time_Layer3, DINGHS[intNumBell]);
 			text_layer_set_text(Time_Layer4, strBells);
 		}
 		//FIVE BELLS
 		else if(((ia==2)&&(id>=16)&&(id<=45))||((ia==6)&&(id>=16)&&(id<=45))||((ia==10)&&(id>=16)&&(id<=45)))
 		{
+			//check if bell needs to ding
+			if (intNumBell!=5){blnDingBell=true;
+							   intNumBell = 5;}
+			
 			text_layer_set_text(Time_Layer1, "");
 			text_layer_set_text(Time_Layer2, strAbout);
-			text_layer_set_text(Time_Layer3, DINGHS[5]);
+			text_layer_set_text(Time_Layer3, DINGHS[intNumBell]);
 			text_layer_set_text(Time_Layer4, strBells);
 		}
 		//SIX BELLS
 		else if(((ia==2)&&(id>=46))||((ia==3)&&(id<=15))||((ia==6)&&(id>=46))||((ia==7)&&(id<=15))||((ia==10)&&(id>=46))||((ia==11)&&(id<=15)))
 		{
+			//check if bell needs to ding
+			if (intNumBell!=6){blnDingBell=true;
+							   intNumBell = 6;}
+			
 			text_layer_set_text(Time_Layer1, "");
 			text_layer_set_text(Time_Layer2, strAbout);
-			text_layer_set_text(Time_Layer3, DINGHS[6]);
+			text_layer_set_text(Time_Layer3, DINGHS[intNumBell]);
 			text_layer_set_text(Time_Layer4, strBells);
 		}
 		//SEVEN BELLS
 		else if(((ia==3)&&(id>=16)&&(id<=45))||((ia==7)&&(id>=16)&&(id<=45))||((ia==11)&&(id>=16)&&(id<=45)))
 		{
+			//check if bell needs to ding
+			if (intNumBell!=7){blnDingBell=true;
+							   intNumBell = 7;}
+			
 			text_layer_set_text(Time_Layer1, "");
 			text_layer_set_text(Time_Layer2, strAbout);
-			text_layer_set_text(Time_Layer3, DINGHS[7]);
+			text_layer_set_text(Time_Layer3, DINGHS[intNumBell]);
 			text_layer_set_text(Time_Layer4, strBells);
 		}
 		//EIGHT BELLS
 		else if(((ia==3)&&(id>=46))||((ia==4)&&(id<=15))||((ia==7)&&(id>=46))||((ia==8)&&(id<=15))||((ia==11)&&(id>=46))||((ia==12)&&(id<=15)))
 		{
+			//check if bell needs to ding
+			if (intNumBell!=8){blnDingBell=true;
+							   intNumBell = 8;}
+			
 			text_layer_set_text(Time_Layer1, "");
 			text_layer_set_text(Time_Layer2, strAbout);
-			text_layer_set_text(Time_Layer3, DINGHS[8]);
+			text_layer_set_text(Time_Layer3, DINGHS[intNumBell]);
 			text_layer_set_text(Time_Layer4, strBells);
 		}
 		//ELSE (UNDEFINED)
@@ -228,6 +339,9 @@ When the time is (either AM or PM): Display shows:
 			text_layer_set_text(Time_Layer3, "fucking ");
 			text_layer_set_text(Time_Layer4, strBells);	
 		}
+		
+		//Makes the Bell Ding (if needed)
+		if(blnDingBell==true){vibes(intNumBell);}
 
 	} //MINUTE CHANGES
 
@@ -311,6 +425,7 @@ void handle_init(void)
 	  	struct tm *current_time = localtime(&now);
 		handle_tick(current_time, MINUTE_UNIT);
 		tick_timer_service_subscribe(MINUTE_UNIT, &handle_tick);
+	
 
 
 } //HANDLE_INIT
