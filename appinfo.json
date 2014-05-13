@@ -1,0 +1,18 @@
+{
+    "versionLabel": "1.0",
+    "uuid": "0edffabf-f95a-48d8-a9c5-63f0b3be8705",
+    "appKeys": {},
+    "longName": "Dinghy Time",
+    "versionCode": 2,
+    "capabilities": [
+        ""
+    ],
+    "shortName": "Dinghy Time",
+    "companyName": "David Rodriguez Rincon",
+    "watchapp": {
+        "watchface": true
+    },
+    "resources": {
+        "media": []
+    }
+}
