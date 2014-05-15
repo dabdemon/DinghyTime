@@ -4,30 +4,31 @@
 
 
 //#define TIME_FRAME        (GRect(0, 25, 144, 130)) 
-	#define TIME_FRAME1       (GRect(0, 23, 142, 35)) 
-	#define TIME_FRAME2       (GRect(0, 55, 142, 35)) 
-	#define TIME_FRAME3       (GRect(0, 88, 142, 35)) 
-	#define TIME_FRAME4       (GRect(0, 121, 142, 35)) 
+	
+//Definition for 4 layers
+	//#define TIME_FRAME1       (GRect(0, 23, 142, 35)) 
+	//#define TIME_FRAME2       (GRect(0, 55, 142, 35)) 
+	//#define TIME_FRAME3       (GRect(0, 88, 142, 35)) 
+	//#define TIME_FRAME4       (GRect(0, 121, 142, 35)) 
+
+//Definition for 3 layers
+	#define TIME_FRAME2       (GRect(0, 39, 142, 35)) 
+	#define TIME_FRAME3       (GRect(0, 71, 142, 35)) 
+	#define TIME_FRAME4       (GRect(0, 104, 142, 35))
+	
 	#define DATE_FRAME        (GRect(0, 3, 144, 30))
 	#define JOKE_FRAME        (GRect(0, 154, 144, 14)) 
 	
-// Vibe pattern: ON for 200ms, OFF for 100ms, ON for 200ms:
+// Vibe pattern: ON for 400ms, OFF for 800ms:
 
-static const uint32_t const OneBell[] = { 400, 400 };
-static const uint32_t const TwoBells[] = { 400, 400, 400 };
-static const uint32_t const ThreeBells[] = { 400, 400, 400, 400, 400 };
-static const uint32_t const FourBells[] = { 400, 400, 400, 400, 400, 400, 400 };
-static const uint32_t const FiveBells[] = { 400, 400, 400, 400, 400, 400, 400, 400, 400 };
-static const uint32_t const SixBells[] = { 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400 };
-static const uint32_t const SevenBells[] = { 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400 };
-static const uint32_t const EightBells[] = { 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400 };
+	static const uint32_t const VibePatter[16] = { 400, 800, 400, 800, 400, 800, 400, 800, 400, 800, 400, 800, 400, 800, 400, 800 };
 	
 //Declare initial window	
 	Window *my_window;    
 
 //Define the layers
 	TextLayer *date_layer;   		// Layer for the date
-	TextLayer *Time_Layer1; 		// Layer for the 1st line of the time
+	//TextLayer *Time_Layer1; 		// Layer for the 1st line of the time
 	TextLayer *Time_Layer2; 		// Layer for the 2nd line of the time
 	TextLayer *Time_Layer3; 		// Layer for the 3rd line of the time
 	TextLayer *Time_Layer4; 		// Layer for the 4th line of the time
@@ -90,57 +91,14 @@ static void vibes(int intVibes)
 {
 
 	
-	if(intVibes==1){ VibePattern pat = {
-  										.durations = OneBell,
- 										.num_segments = ARRAY_LENGTH(OneBell),
-                                       };
-							vibes_enqueue_custom_pattern(pat);
-				   }
-	else if(intVibes==2){ VibePattern pat2 = {
-  										.durations = TwoBells,
- 										.num_segments = ARRAY_LENGTH(TwoBells),
-                                       };
-						 	vibes_enqueue_custom_pattern(pat2);
-				   }
-	else if(intVibes==3){ VibePattern pat3 = {
-  										.durations = ThreeBells,
- 										.num_segments = ARRAY_LENGTH(ThreeBells),
-                                       };
-						 	vibes_enqueue_custom_pattern(pat3);
-				   }
-	else if(intVibes==4){ VibePattern pat4 = {
-  										.durations = FourBells,
- 										.num_segments = ARRAY_LENGTH(FourBells),
-                                       };
-						 	vibes_enqueue_custom_pattern(pat4);
-				   }
-	else if(intVibes==5){ VibePattern pat5 = {
-  										.durations = FiveBells,
- 										.num_segments = ARRAY_LENGTH(FiveBells),
-                                       };
-						 	vibes_enqueue_custom_pattern(pat5);
-				   }
-	else if(intVibes==6){VibePattern pat6 = {
-  										.durations = SixBells,
- 										.num_segments = ARRAY_LENGTH(SixBells),
-                                       };
-						 	vibes_enqueue_custom_pattern(pat6);
-				   }
-	else if(intVibes==7){VibePattern pat7 = {
-  										.durations = SevenBells,
- 										.num_segments = ARRAY_LENGTH(SevenBells),
-                                       };
-						 	vibes_enqueue_custom_pattern(pat7);
-				   }
-	else if(intVibes==8){ VibePattern pat8 = {
-  										.durations = EightBells,
- 										.num_segments = ARRAY_LENGTH(EightBells),
-                                       };
-						 	vibes_enqueue_custom_pattern(pat8);
-				   }
-
-
 	
+	VibePattern pat = {
+						.durations = VibePatter,
+						.num_segments = (intVibes * 2), //Number of bells (including silence)
+	};
+	vibes_enqueue_custom_pattern(pat);
+
+
 	//Turn off the bell until next time
 	blnDingBell=false;
 	
@@ -243,7 +201,7 @@ When the time is (either AM or PM): Display shows:
 			if (intNumBell!=1){blnDingBell=true;
 							   intNumBell = 1;}
 			
-			text_layer_set_text(Time_Layer1, "");
+			//text_layer_set_text(Time_Layer1, "");
 			text_layer_set_text(Time_Layer2, strAbout);
 			text_layer_set_text(Time_Layer3, DINGHS[intNumBell]);
 			text_layer_set_text(Time_Layer4, strBell);
@@ -255,7 +213,7 @@ When the time is (either AM or PM): Display shows:
 			if (intNumBell!=2){blnDingBell=true;
 							   intNumBell = 2;}
 			
-			text_layer_set_text(Time_Layer1, "");
+			//text_layer_set_text(Time_Layer1, "");
 			text_layer_set_text(Time_Layer2, strAbout);
 			text_layer_set_text(Time_Layer3, DINGHS[intNumBell]);
 			text_layer_set_text(Time_Layer4, strBells);
@@ -267,7 +225,7 @@ When the time is (either AM or PM): Display shows:
 			if (intNumBell!=3){blnDingBell=true;
 							   intNumBell = 3;}
 			
-			text_layer_set_text(Time_Layer1, "");
+			//text_layer_set_text(Time_Layer1, "");
 			text_layer_set_text(Time_Layer2, strAbout);
 			text_layer_set_text(Time_Layer3, DINGHS[intNumBell]);
 			text_layer_set_text(Time_Layer4, strBells);
@@ -279,7 +237,7 @@ When the time is (either AM or PM): Display shows:
 			if (intNumBell!=4){blnDingBell=true;
 							   intNumBell = 4;}
 			
-			text_layer_set_text(Time_Layer1, "");
+			//text_layer_set_text(Time_Layer1, "");
 			text_layer_set_text(Time_Layer2, strAbout);
 			text_layer_set_text(Time_Layer3, DINGHS[intNumBell]);
 			text_layer_set_text(Time_Layer4, strBells);
@@ -291,7 +249,7 @@ When the time is (either AM or PM): Display shows:
 			if (intNumBell!=5){blnDingBell=true;
 							   intNumBell = 5;}
 			
-			text_layer_set_text(Time_Layer1, "");
+			//text_layer_set_text(Time_Layer1, "");
 			text_layer_set_text(Time_Layer2, strAbout);
 			text_layer_set_text(Time_Layer3, DINGHS[intNumBell]);
 			text_layer_set_text(Time_Layer4, strBells);
@@ -303,7 +261,7 @@ When the time is (either AM or PM): Display shows:
 			if (intNumBell!=6){blnDingBell=true;
 							   intNumBell = 6;}
 			
-			text_layer_set_text(Time_Layer1, "");
+			//text_layer_set_text(Time_Layer1, "");
 			text_layer_set_text(Time_Layer2, strAbout);
 			text_layer_set_text(Time_Layer3, DINGHS[intNumBell]);
 			text_layer_set_text(Time_Layer4, strBells);
@@ -315,7 +273,7 @@ When the time is (either AM or PM): Display shows:
 			if (intNumBell!=7){blnDingBell=true;
 							   intNumBell = 7;}
 			
-			text_layer_set_text(Time_Layer1, "");
+			//text_layer_set_text(Time_Layer1, "");
 			text_layer_set_text(Time_Layer2, strAbout);
 			text_layer_set_text(Time_Layer3, DINGHS[intNumBell]);
 			text_layer_set_text(Time_Layer4, strBells);
@@ -327,14 +285,14 @@ When the time is (either AM or PM): Display shows:
 			if (intNumBell!=8){blnDingBell=true;
 							   intNumBell = 8;}
 			
-			text_layer_set_text(Time_Layer1, "");
+			//text_layer_set_text(Time_Layer1, "");
 			text_layer_set_text(Time_Layer2, strAbout);
 			text_layer_set_text(Time_Layer3, DINGHS[intNumBell]);
 			text_layer_set_text(Time_Layer4, strBells);
 		}
 		//ELSE (UNDEFINED)
 		else{
-			text_layer_set_text(Time_Layer1, "there ");
+			//text_layer_set_text(Time_Layer1, "there ");
 			text_layer_set_text(Time_Layer2, "are not ");
 			text_layer_set_text(Time_Layer3, "fucking ");
 			text_layer_set_text(Time_Layer4, strBells);	
@@ -372,12 +330,14 @@ void handle_init(void)
 	//LOAD THE LAYERS
 
 		//Display the Time layer
+	/*
 		Time_Layer1 = text_layer_create(TIME_FRAME1);
 		text_layer_set_text_color(Time_Layer1, GColorWhite);
 		text_layer_set_background_color(Time_Layer1, GColorClear);
 		text_layer_set_font(Time_Layer1, font_time);
 		text_layer_set_text_alignment(Time_Layer1, GTextAlignmentRight);
 		layer_add_child(window_get_root_layer(my_window), text_layer_get_layer(Time_Layer1)); 
+	*/
 
 		Time_Layer2 = text_layer_create(TIME_FRAME2);
 		text_layer_set_text_color(Time_Layer2, GColorWhite);
@@ -443,7 +403,7 @@ void handle_deinit(void)
 	tick_timer_service_unsubscribe();
 
 	//Deallocate layers
-	text_layer_destroy(Time_Layer1);
+	//text_layer_destroy(Time_Layer1);
 	text_layer_destroy(Time_Layer2);
 	text_layer_destroy(Time_Layer3);
 	text_layer_destroy(Time_Layer4);
