@@ -69,6 +69,18 @@ static const char *DINGHS[] = {
 	"eight ",
 };
 
+static const char *FUN[] = {
+	NULL,
+	"about ",
+	"close to ",
+	"roughly ",
+	"nigh ",
+	"approx. ",
+	"near to ",
+	"roughly ",
+	"around ",
+};
+
 static char strAbout[]="about ";
 static char strBell[]="bell ";
 static char strBells[]="bells ";
@@ -202,7 +214,7 @@ When the time is (either AM or PM): Display shows:
 							   intNumBell = 1;}
 			
 			//text_layer_set_text(Time_Layer1, "");
-			text_layer_set_text(Time_Layer2, strAbout);
+			text_layer_set_text(Time_Layer2, FUN[intNumBell]);
 			text_layer_set_text(Time_Layer3, DINGHS[intNumBell]);
 			text_layer_set_text(Time_Layer4, strBell);
 		}
@@ -214,7 +226,7 @@ When the time is (either AM or PM): Display shows:
 							   intNumBell = 2;}
 			
 			//text_layer_set_text(Time_Layer1, "");
-			text_layer_set_text(Time_Layer2, strAbout);
+			text_layer_set_text(Time_Layer2, FUN[intNumBell]);
 			text_layer_set_text(Time_Layer3, DINGHS[intNumBell]);
 			text_layer_set_text(Time_Layer4, strBells);
 		}
@@ -226,7 +238,7 @@ When the time is (either AM or PM): Display shows:
 							   intNumBell = 3;}
 			
 			//text_layer_set_text(Time_Layer1, "");
-			text_layer_set_text(Time_Layer2, strAbout);
+			text_layer_set_text(Time_Layer2, FUN[intNumBell]);
 			text_layer_set_text(Time_Layer3, DINGHS[intNumBell]);
 			text_layer_set_text(Time_Layer4, strBells);
 		}
@@ -238,7 +250,7 @@ When the time is (either AM or PM): Display shows:
 							   intNumBell = 4;}
 			
 			//text_layer_set_text(Time_Layer1, "");
-			text_layer_set_text(Time_Layer2, strAbout);
+			text_layer_set_text(Time_Layer2, FUN[intNumBell]);
 			text_layer_set_text(Time_Layer3, DINGHS[intNumBell]);
 			text_layer_set_text(Time_Layer4, strBells);
 		}
@@ -250,7 +262,7 @@ When the time is (either AM or PM): Display shows:
 							   intNumBell = 5;}
 			
 			//text_layer_set_text(Time_Layer1, "");
-			text_layer_set_text(Time_Layer2, strAbout);
+			text_layer_set_text(Time_Layer2, FUN[intNumBell]);
 			text_layer_set_text(Time_Layer3, DINGHS[intNumBell]);
 			text_layer_set_text(Time_Layer4, strBells);
 		}
@@ -262,7 +274,7 @@ When the time is (either AM or PM): Display shows:
 							   intNumBell = 6;}
 			
 			//text_layer_set_text(Time_Layer1, "");
-			text_layer_set_text(Time_Layer2, strAbout);
+			text_layer_set_text(Time_Layer2, FUN[intNumBell]);
 			text_layer_set_text(Time_Layer3, DINGHS[intNumBell]);
 			text_layer_set_text(Time_Layer4, strBells);
 		}
@@ -274,7 +286,7 @@ When the time is (either AM or PM): Display shows:
 							   intNumBell = 7;}
 			
 			//text_layer_set_text(Time_Layer1, "");
-			text_layer_set_text(Time_Layer2, strAbout);
+			text_layer_set_text(Time_Layer2, FUN[intNumBell]);
 			text_layer_set_text(Time_Layer3, DINGHS[intNumBell]);
 			text_layer_set_text(Time_Layer4, strBells);
 		}
@@ -286,20 +298,21 @@ When the time is (either AM or PM): Display shows:
 							   intNumBell = 8;}
 			
 			//text_layer_set_text(Time_Layer1, "");
-			text_layer_set_text(Time_Layer2, strAbout);
+			text_layer_set_text(Time_Layer2, FUN[intNumBell]);
 			text_layer_set_text(Time_Layer3, DINGHS[intNumBell]);
 			text_layer_set_text(Time_Layer4, strBells);
 		}
 		//ELSE (UNDEFINED)
 		else{
 			//text_layer_set_text(Time_Layer1, "there ");
-			text_layer_set_text(Time_Layer2, "are not ");
+			text_layer_set_text(Time_Layer2, "no ");
 			text_layer_set_text(Time_Layer3, "fucking ");
 			text_layer_set_text(Time_Layer4, strBells);	
 		}
 		
 		//Makes the Bell Ding (if needed)
-		if(blnDingBell==true){vibes(intNumBell);}
+		//commented as I'm too lazy to add the settings page at this point...
+		//if(blnDingBell==true){vibes(intNumBell);}
 
 	} //MINUTE CHANGES
 
